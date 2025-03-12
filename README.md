@@ -17,4 +17,4 @@ The meal suggestions use common ingredients and provide nutritional benefits tai
 ## ChatGPT vs Claude Challenge.
 This code is ChatGPT Reason's response to a challenge that it produce more sophisticated code than Claude AIs.
 
-Try it now: [Post-Workout Meal Generator](https://yourusername.github.io/post-workout-meal-generator/)
+Try it now: [Post-Workout Meal Generator](https://berlimel.github.io/chatGPT-reason-claudechallenge-post-workout-meal-generator/)
