@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post-Workout Meal Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Post-Workout Meal Generator</h1>
+        <div class="form-group">
+            <label for="workout">Workout Type:</label>
+            <select id="workout">
+                <option value="weightlifting">Weight Lifting</option>
+                <option value="swimming">Swimming</option>
+                <option value="biking">Biking</option>
+                <option value="running">Running</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="intensity">Workout Intensity:</label>
+            <select id="intensity">
+                <option value="light">Light (30-45 min)</option>
+                <option value="moderate">Moderate (45-75 min)</option>
+                <option value="intense">Intense (75+ min)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="timing">Meal Timing:</label>
+            <select id="timing">
+                <option value="immediate">Immediate (within 30 min)</option>
+                <option value="delayed">Delayed (1-2 hours after)</option>
+            </select>
+        </div>
+        <button onclick="generateMeal()">Get Meal Suggestion</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const ingredients = ["eggs", "tofu", "salmon", "lentils", "red beans", "black beans", "walnuts", "pecans", "whole grain pasta", "potatoes", "whole grain bread", "sweet potatoes", "bananas", "apples", "spinach", "onions", "broccoli", "peanut butter", "brown rice", "spelt bran", "avocados", "feta cheese", "oat milk", "lemon juice", "mushrooms", "quinoa", "millet", "bulgur"];
+        
+        const meals = {
+            weightlifting: [
+                { name: "Protein Power Bowl", ingredients: ["quinoa", "tofu", "spinach", "avocados", "walnuts"], benefits: "High in protein and healthy fats to repair muscles." },
+                { name: "Muscle Recovery Plate", ingredients: ["salmon", "sweet potatoes", "broccoli", "lemon juice"], benefits: "Great for muscle recovery with omega-3s and complex carbs." }
+            ],
+            swimming: [
+                { name: "Swimmer’s Energy Boost", ingredients: ["whole grain pasta", "tofu", "spinach", "walnuts"], benefits: "Replenishes energy stores with a balanced mix of carbs and proteins." },
+                { name: "Omega-3 Power Meal", ingredients: ["salmon", "brown rice", "broccoli", "avocados"], benefits: "Rich in healthy fats and protein for endurance recovery." }
+            ],
+            biking: [
+                { name: "Cyclist’s Stamina Bowl", ingredients: ["quinoa", "lentils", "sweet potatoes", "spinach"], benefits: "High-carb meal to restore glycogen after long rides." },
+                { name: "Energy Replenish Plate", ingredients: ["brown rice", "black beans", "broccoli", "avocados"], benefits: "Provides essential proteins and carbs for recovery." }
+            ],
+            running: [
+                { name: "Runner’s Refuel Meal", ingredients: ["sweet potatoes", "black beans", "spinach", "avocados"], benefits: "Helps replenish glycogen and supports muscle repair." },
+                { name: "Quick Recovery Bowl", ingredients: ["bananas", "peanut butter", "whole grain bread", "oat milk"], benefits: "Quick-absorbing carbs for fast energy replenishment." }
+            ]
+        };
+
+        function generateMeal() {
+            const workout = document.getElementById("workout").value;
+            const intensity = document.getElementById("intensity").value;
+            const timing = document.getElementById("timing").value;
+            
+            let selectedMeals = meals[workout].filter(meal => meal.ingredients.every(ing => ingredients.includes(ing)));
+            
+            if (selectedMeals.length === 0) {
+                document.getElementById("result").innerHTML = "No suitable meal found with your available ingredients.";
+                document.getElementById("result").style.display = "block";
+                return;
+            }
+            
+            let meal = selectedMeals[Math.floor(Math.random() * selectedMeals.length)];
+            
+            document.getElementById("result").innerHTML = `<h3>${meal.name}</h3>
+                <p><strong>Ingredients:</strong> ${meal.ingredients.join(", ")}</p>
+                <p><strong>Benefits:</strong> ${meal.benefits}</p>
+                <p><strong>Suggested Serving:</strong> ${intensity === "intense" ? "Large portion" : "Regular portion"}, best eaten ${timing === "immediate" ? "immediately" : "within 1-2 hours"} after workout.</p>`;
+            document.getElementById("result").style.display = "block";
+        }
+    </script>
+</body>
+</html>
